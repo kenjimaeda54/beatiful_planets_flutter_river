@@ -1,7 +1,7 @@
 # Beatiful Planets
 Projeto sobre curiosidades dos planetas
 
-## Motivacao
+## Motivação
 Reforçar o uso do River em projetos Flutter ,usar os principais recurso que a ferramenta disponibiliza para criar aplicações animadas e interativas
 
 ## Feature
