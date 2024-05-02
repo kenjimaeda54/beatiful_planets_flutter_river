@@ -1,3 +1,4 @@
+import 'package:beatiful_planets_flutter/screens/detail_planet/detail_planet.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
@@ -21,26 +22,30 @@ class Home extends StatelessWidget {
             child: child,
           );
         },
-        transitionDuration: Duration(seconds: 1));
-  }
-
-  void _handleInitRive(Artboard artboard) {
-    _stateMachineController =
-        StateMachineController.fromArtboard(artboard, "State Solar")!;
-    artboard.play();
-    artboard.addController(_stateMachineController);
-    _stateMachineController.addEventListener((event) {
-      print(event);
-    });
+        transitionDuration: const Duration(seconds: 1));
   }
 
   @override
   Widget build(BuildContext context) {
+    void handleInitRive(Artboard artboard) {
+      _stateMachineController =
+          StateMachineController.fromArtboard(artboard, "State Solar")!;
+      artboard.play();
+      artboard.addController(_stateMachineController);
+      _stateMachineController.addEventListener((event) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          Navigator.of(context)
+              .push(DetailPlanet.route(planetId: event.properties[""]));
+        });
+      });
+    }
+
     return Scaffold(
       body: RiveAnimation.asset(
         "assets/first_integration.riv",
-        onInit: _handleInitRive,
+        onInit: handleInitRive,
         artboard: 'System Solar',
+        fit: BoxFit.cover,
       ),
     );
   }
